@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách nhân viên</title>
+</head>
+<body>
+<a href="/create-employee">Thêm mới nhân viên</a>
+<h1 style="color: red">Danh sách nhân viên</h1>
+<form>
+    Tìm kiếm theo tên hàng:
+    <input name="s" type="text"/>
+    <input type="submit" value="Search"/>
+</form>
+<br/>
+<table border="1" width="500px">
+    <tr>
+        <th width="25px">Mã nhân viên</th>
+        <th width="25px">Nhóm nhân viên</th>
+        <th width="25px">Họ tên</th>
+        <th width="25px">Giới tính</th>
+        <th width="25px">Số điện thoại</th>
+        <th width="25px">Chức năng</th>
+    </tr>
+    <th:block th:each="em : ${employees}">
+        <tr>
+            <td th:text="${em.employeeId}"></td>
+            <td th:text="${em.department.name}"></td>
+            <td th:text="${em.name}"></td>
+            <td th:text="${em.gender}"></td>
+            <td th:text="${em.numberPhone}"></td>
+            <td>
+                <a th:href="@{/edit-employee/__${em.id}__ }">Edit</a>
+                <a th:href="@{/delete-employee/__${em.id}__ }">Delete</a>
+            </td>
+        </tr>
+    </th:block>
+</table>
+<div>
+    <a th:href="@{'/employees'(page=${employees.number - 1})}" th:if="${employees.hasPrevious()}">Quay lại</a>
+    <span th:text="${employees.number + 1}"></span>/<span th:text="${employees.totalPages}"></span>
+    <a th:href="@{'/employees'(page=${employees.number + 1})}" th:if="${employees.hasNext()}">Tiếp</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sửa nhân viên</title>
+</head>
+<body>
+<h1 style="color: red">Sửa nhân viên</h1>
+<th:block th:if="${message}">
+    <p th:text="${message}"></p>
+</th:block>
+<form th:action="@{/edit-employee}" th:object="${employee}" method="post">
+    <input th:type="hidden" name="id" th:field="*{id}">
+    <table>
+        <tr>
+            <td>Mã nhân viên:</td>
+            <td><input type="text" th:field="*{employeeId}" readonly/></td>
+        </tr>
+        <tr>
+            <td>Chọn nhóm nhân viên:</td>
+            <td>
+                <select name="department">
+                    <option th:each="p : ${departments}"
+                            th:value="${p.id}"
+                            th:text="${p.name}"
+                            th:selected="(${p.id} == *{department.id})"></option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Họ tên:</td>
+            <td><input type="text" th:field="*{name}"/></td>
+        </tr>
+        <tr>
+            <td>Ngày sinh:</td>
+            <td><input type="text" th:field="*{dateOfBirth}" placeholder="yyyy-mm-dd"/></td>
+        </tr>
+        <tr>
+            <td>Giới tính:</td>
+            <td>
+                <input type="radio" name="gender" th:field="*{gender}" value="Nam">Nam
+                <input type="radio" name="gender" th:field="*{gender}" value="Nữ">Nữ
+            </td>
+        </tr>
+        <tr>
+            <td>Số điện thoại:</td>
+            <td><input type="text" th:field="*{numberPhone}"/></td>
+        </tr>
+        <tr>
+            <td>Số CMND:</td>
+            <td><input type="text" th:field="*{personId}"/></td>
+        </tr>
+        <tr>
+            <td>Email:</td>
+            <td><input type="text" th:field="*{email}"/></td>
+        </tr>
+        <tr>
+            <td>Địa chỉ:</td>
+            <td><input type="text" th:field="*{address}"/></td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Sửa nhân viên"></td>
+            <td>
+                <button><a href="/employees">Thoát</a></button>
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

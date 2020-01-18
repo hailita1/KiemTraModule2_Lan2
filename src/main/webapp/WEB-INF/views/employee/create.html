@@ -72,7 +72,7 @@
             </tr>
             <tr>
                 <td>Ngày sinh:</td>
-                <td><input type="text" th:field="*{dateOfBirth}" placeholder="yyyy-mm-dd"/></td>
+                <td><input type="text" th:field="*{dateOfBirth}" placeholder="yyyy-MM-dd"/></td>
                 <td th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}">DateOfBirth Error</td>
             </tr>
             <tr>

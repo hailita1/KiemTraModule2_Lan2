@@ -29,7 +29,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/employees")
-    public ModelAndView listProduct(@RequestParam("s") Optional<String> s, @PageableDefault(value = 2) Pageable pageable) {
+    public ModelAndView listProduct(@RequestParam("s") Optional<String> s, @PageableDefault(value = 5, sort = "employeeId") Pageable pageable) {
         Page<Employee> employees;
         if (s.isPresent()) {
             employees = employeeService.findAllByEmployeeIdContainsOrNameContains(s.get(), s.get(), pageable);

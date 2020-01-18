@@ -3,39 +3,159 @@
 <head>
     <meta charset="UTF-8">
     <title>Danh sách nhân viên</title>
+    <style>
+        #products {
+            width: 100%;
+        }
+
+        #products td, #customers th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        #products tr:nth-child(even) {
+            background-color: #93c5c759;
+        }
+
+        #products tr:hover {
+            background-color: #4caf50;
+        }
+
+        #products th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .add-product {
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            float: right;
+        }
+
+        .title {
+            text-align: center;
+        }
+
+        .search-product {
+            float: left;
+        }
+
+        input[type=text] {
+            width: 200px;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type=submit] {
+
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        a {
+            color: black;
+            text-decoration: none;
+            margin-right: 16px;
+            margin-left: 10px;
+        }
+
+        #button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        /*body {*/
+        /*    background: url("https://smsbongda.com/wp-content/uploads/2019/07/hinh-anh-barcelona-7.jpg");*/
+        /*    background-size: 100%;*/
+        /*}*/
+    </style>
 </head>
 <body>
-<a href="/create-employee">Thêm mới nhân viên</a>
-<h1 style="color: red">Danh sách nhân viên</h1>
+<button id="button"><a href="/create-employee">Thêm mới nhân viên</a></button>
+<center><h1 style="color: black">Danh sách nhân viên</h1></center>
 <form>
-    Tìm kiếm theo tên hàng:
-    <input name="s" type="text"/>
-    <input type="submit" value="Search"/>
+    <center>
+        <table>
+            <tr>
+                <td><h2>Tìm kiếm theo tên hàng:</h2></td>
+                <td><input name="s" type="text" style="width: 600px;"/></td>
+                <td><input type="submit" value="Search" style="width: 100px"/></td>
+            </tr>
+        </table>
+    </center>
+
 </form>
 <br/>
-<table border="1" width="500px">
-    <tr>
-        <th width="25px">Mã nhân viên</th>
-        <th width="25px">Nhóm nhân viên</th>
-        <th width="25px">Họ tên</th>
-        <th width="25px">Giới tính</th>
-        <th width="25px">Số điện thoại</th>
-        <th width="25px">Chức năng</th>
-    </tr>
-    <th:block th:each="em : ${employees}">
+<center>
+    <table id="products">
         <tr>
-            <td th:text="${em.employeeId}"></td>
-            <td th:text="${em.department.name}"></td>
-            <td th:text="${em.name}"></td>
-            <td th:text="${em.gender}"></td>
-            <td th:text="${em.numberPhone}"></td>
-            <td>
-                <a th:href="@{/edit-employee/__${em.id}__ }">Edit</a>
-                <a th:href="@{/delete-employee/__${em.id}__ }">Delete</a>
-            </td>
+            <th width="25px">
+                <center>Mã nhân viên</center>
+            </th>
+            <th width="25px">
+                <center>Nhóm nhân viên</center>
+            </th>
+            <th width="25px">
+                <center>Họ tên</center>
+            </th>
+            <th width="25px">
+                <center>Giới tính</center>
+            </th>
+            <th width="25px">
+                <center>Số điện thoại</center>
+            </th>
+            <th width="25px">
+                <center>Chức năng</center>
+            </th>
         </tr>
-    </th:block>
-</table>
+        <th:block th:each="em : ${employees}">
+            <tr>
+                <td th:text="${em.employeeId}"></td>
+                <td th:text="${em.department.name}"></td>
+                <td th:text="${em.name}"></td>
+                <td th:text="${em.gender}"></td>
+                <td th:text="${em.numberPhone}"></td>
+                <td>
+                    <center>
+                        <a th:href="@{/edit-employee/__${em.id}__ }">
+                            <img border="0"
+                                 src="https://suativiled.com.vn/wp-content/uploads/2019/03/icon-bao-hanh.png"
+                                 width="30">
+                        </a>|
+                        <a th:href="@{/delete-employee/__${em.id}__ }">
+                            <img border="0"
+                                 src="http://www.3gmobiles.biz/image/upload/news/2014/7/5/210/210_img1.png"
+                                 width="30">
+                        </a>
+                    </center>
+                </td>
+            </tr>
+        </th:block>
+    </table>
+</center>
 <div>
     <a th:href="@{'/employees'(page=${employees.number - 1})}" th:if="${employees.hasPrevious()}">Quay lại</a>
     <span th:text="${employees.number + 1}"></span>/<span th:text="${employees.totalPages}"></span>

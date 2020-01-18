@@ -3,64 +3,110 @@
 <head>
     <meta charset="UTF-8">
     <title>Thêm mới nhân viên</title>
+    <style>
+        input[type=text], select {
+            width: 350px;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type=submit] {
+
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0 8px 8px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        #button {
+            width: 110px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0px 8px 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            float: left;
+        }
+
+        /*body {*/
+        /*    background: url("https://thuthuatnhanh.com/wp-content/uploads/2019/08/Hinh-nen-Neymar-Jr.jpg");*/
+        /*    background-size: 100%;*/
+        /*}*/
+    </style>
 </head>
-<body>
-<h1 style="color: red">Thêm mới nhân viên</h1>
-<th:block th:if="${message}">
-    <p th:text="${message}"></p>
-</th:block>
-<form th:action="@{/create-employee}" th:object="${employee}" method="post">
-    <table>
-        <tr>
-            <td>Mã nhân viên:</td>
-            <td><input type="text" th:field="*{employeeId}"/></td>
-        </tr>
-        <tr>
-            <td>Chọn nhóm nhân viên:</td>
+<center>
+    <body>
+    <h1 style="color: red">Thêm mới nhân viên</h1>
+    <th:block th:if="${message}">
+        <p th:text="${message}"></p>
+    </th:block>
+    <form th:action="@{/create-employee}" th:object="${employee}" method="post">
+        <table>
+            <tr>
+            <tr>
+                <td>Mã nhân viên</td>
+                <td>Số điện thoại</td>
+            </tr>
+            <tr>
+                <td><input type="text" th:field="*{employeeId}"/></td>
+                <td><input type="text" th:field="*{numberPhone}"/></td>
+            </tr>
+            <tr>
+                <td>Chọn nhóm nhân viên</td>
+                <td>Số CMND</td>
+
+            </tr>
+            <tr>
+                <td>
+                    <select th:field="*{department}">
+                        <option th:each="p : ${departments}" th:value="${p.id}" th:text="${p.name}"></option>
+                    </select>
+                </td>
+                <td><input type="text" th:field="*{personId}"/></td>
+            </tr>
+
+            </tr>
+            <tr>
+                <td>Họ tên</td>
+                <td>Email</td>
+            <tr>
+            <tr>
+                <td><input type="text" th:field="*{name}"/></td>
+                <td><input type="text" th:field="*{email}"/></td>
+            </tr>
+            <tr>
+                <td>Ngày sinh</td>
+                <td>Địa chỉ</td>
+
+            </tr>
+            <tr>
+                <td><input type="text" th:field="*{dateOfBirth}" placeholder="yyyy-mm-dd"/></td>
+
+                <td><input type="text" th:field="*{address}"/></td>
+            </tr>
             <td>
-                <select th:field="*{department}">
-                    <option th:each="p : ${departments}" th:value="${p.id}" th:text="${p.name}"></option>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <td>Họ tên:</td>
-            <td><input type="text" th:field="*{name}"/></td>
-        </tr>
-        <tr>
-            <td>Ngày sinh:</td>
-            <td><input type="text" th:field="*{dateOfBirth}" placeholder="yyyy-mm-dd"/></td>
-        </tr>
-        <tr>
-            <td>Giới tính:</td>
-            <td>
+                Giới tính:
                 <input type="radio" name="gender" th:field="*{gender}" value="Nam">Nam
                 <input type="radio" name="gender" th:field="*{gender}" value="Nữ">Nữ
             </td>
-        </tr>
-        <tr>
-            <td>Số điện thoại:</td>
-            <td><input type="text" th:field="*{numberPhone}"/></td>
-        </tr>
-        <tr>
-            <td>Số CMND:</td>
-            <td><input type="text" th:field="*{personId}"/></td>
-        </tr>
-        <tr>
-            <td>Email:</td>
-            <td><input type="text" th:field="*{email}"/></td>
-        </tr>
-        <tr>
-            <td>Địa chỉ:</td>
-            <td><input type="text" th:field="*{address}"/></td>
-        </tr>
-        <tr>
-            <td><input type="submit" value="Thêm mới nhân viên"></td>
-            <td>
-                <button><a href="/employees">Thoát</a></button>
-            </td>
-        </tr>
-    </table>
-</form>
-</body>
+            </tr>
+            <tr>
+                <td><input type="submit" value="Thêm mới nhân viên" style="color: blue"></td>
+                <td>
+                    <button id="button"><a href="/employees">Thoát</a></button>
+                </td>
+            </tr>
+        </table>
+    </form>
+    </body>
+</center>
 </html>

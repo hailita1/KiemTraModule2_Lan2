@@ -36,8 +36,8 @@
 </head>
 <center>
     <body>
-    <h1 style="color: red">Xóa nhân viên</h1>
-    <h2 style="color: red">Bạn có muốn xóa không ???</h2>
+    <h1>Xóa nhân viên</h1>
+    <h2>Bạn có chắc chắn xóa nhân viên này không ???</h2>
     <form th:action="@{/delete-employee}" th:object="${employee}" method="post">
         <input th:type="hidden" name="id" th:field="*{id}">
         <table>
@@ -50,10 +50,10 @@
                 <td th:text="${employee.department.name}"></td>
             </tr>
             <tr>
-                <td><input type="submit" value="Xóa nhân viên" style="color: blue"></td>
                 <td>
                     <button id="button"><a href="/employees">Thoát</a></button>
                 </td>
+                <td><input type="submit" value="Xóa nhân viên" style="color: blue"></td>
             </tr>
         </table>
     </form>

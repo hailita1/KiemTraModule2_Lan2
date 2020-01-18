@@ -55,19 +55,10 @@
         <table>
             <tr>
                 <td>Mã nhân viên:</td>
-                <td>Số điện thoại:</td>
-
-            </tr>
-            <tr>
                 <td><input type="text" th:field="*{employeeId}" readonly/></td>
-                <td><input type="text" th:field="*{numberPhone}"/></td>
-                <td th:if="${#fields.hasErrors('numberPhone')}" th:errors="*{numberPhone}">NumberPhone Error</td>
             </tr>
             <tr>
                 <td>Chọn nhóm nhân viên:</td>
-                <td>Số CMND:</td>
-            </tr>
-            <tr>
                 <td>
                     <select name="department">
                         <option th:each="p : ${departments}"
@@ -76,38 +67,48 @@
                                 th:selected="(${p.id} == *{department.id})"></option>
                     </select>
                 </td>
+            </tr>
+            <tr>
+                <td>Họ tên:</td>
+                <td><input type="text" th:field="*{name}"/></td>
+                <td th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</td>
+            </tr>
+            <tr>
+                <td>Ngày sinh:</td>
+                <td><input type="text" th:field="*{dateOfBirth}" placeholder="yyyy-mm-dd"/></td>
+                <td th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}">DateOfBirth Error</td>
+            </tr>
+            <tr>
+                <td>Số điện thoại:</td>
+                <td><input type="text" th:field="*{numberPhone}"/></td>
+                <td th:if="${#fields.hasErrors('numberPhone')}" th:errors="*{numberPhone}">NumberPhone Error</td>
+            </tr>
+            <tr>
+                <td>Số CMND:</td>
                 <td><input type="text" th:field="*{personId}"/></td>
                 <td th:if="${#fields.hasErrors('personId')}" th:errors="*{personId}">PersonId Error</td>
             </tr>
             <tr>
-                <td>Họ tên:</td>
                 <td>Email:</td>
-            </tr>
-            <tr>
-                <td><input type="text" th:field="*{name}"/></td>
-                <td th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</td>
                 <td><input type="text" th:field="*{email}"/></td>
                 <td th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</td>
             </tr>
             <tr>
-                <td>Ngày sinh:</td>
                 <td>Địa chỉ:</td>
-            </tr>
-            <tr>
-                <td><input type="text" th:field="*{dateOfBirth}" placeholder="yyyy-mm-dd"/></td>
-                <td th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}">DateOfBirth Error</td>
                 <td><input type="text" th:field="*{address}"/></td>
                 <td th:if="${#fields.hasErrors('address')}" th:errors="*{address}">Address Error</td>
             </tr>
             <tr>
-                <td>Giới tính:
+                <td>Giới tính:</td>
+                <td>
                     <input type="radio" name="gender" th:field="*{gender}" value="Nam">Nam
                     <input type="radio" name="gender" th:field="*{gender}" value="Nữ">Nữ
                 </td>
             </tr>
             <tr>
-                <td><input type="submit" value="Sửa nhân viên" style="color: blue"></td>
+                <td></td>
                 <td>
+                    <input type="submit" value="Sửa nhân viên" style="color: blue">
                     <button id="button"><a href="/employees">Thoát</a></button>
                 </td>
             </tr>

@@ -81,6 +81,7 @@ public class EmployeeController {
     @PostMapping("/edit-employee")
     public ModelAndView updateProduct(@Valid @ModelAttribute("employee") Employee employee, BindingResult result) {
         new Employee().validate(employee, result);
+
         Employee employee1 = employeeService.findById(employee.getId());
         employee1.setName(employee.getName());
         employee1.setDateOfBirth(employee.getDateOfBirth());
@@ -89,6 +90,7 @@ public class EmployeeController {
         employee1.setPersonId(employee.getPersonId());
         employee1.setEmail(employee.getEmail());
         employee1.setAddress(employee.getAddress());
+        employee1.setDepartment(employee.getDepartment());
         if (result.hasFieldErrors()) {
             ModelAndView modelAndView = new ModelAndView("/employee/edit");
             return modelAndView;

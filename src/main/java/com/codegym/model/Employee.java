@@ -3,22 +3,18 @@ package com.codegym.model;
 import javax.persistence.*;
 import java.time.LocalDate;
 
+import org.springframework.stereotype.Component;
+import org.springframework.validation.Errors;
+import org.springframework.validation.ValidationUtils;
+import org.springframework.validation.Validator;
+
 @Entity
 @Table(name = "employees")
-public class Employee {
+public class Employee implements Validator {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String employeeId;
-
-    public String getEmployeeId() {
-        return employeeId;
-    }
-
-    public void setEmployeeId(String employeeId) {
-        this.employeeId = employeeId;
-    }
-
     private String name;
     private LocalDate dateOfBirth;
     private String gender;
@@ -32,6 +28,14 @@ public class Employee {
     private Department department;
 
     public Employee() {
+    }
+
+    public void setEmployeeId(String employeeId) {
+        this.employeeId = employeeId;
+    }
+
+    public String getEmployeeId() {
+        return employeeId;
     }
 
     public Department getDepartment() {
@@ -104,5 +108,48 @@ public class Employee {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    @Override
+    public boolean supports(Class<?> clazz) {
+        return Employee.class.isAssignableFrom(clazz);
+    }
+
+    @Override
+    public void validate(Object target, Errors errors) {
+        Employee employee = (Employee) target;
+
+        String employeeId = employee.getEmployeeId();
+        String name = employee.getName();
+        LocalDate dateOfBirth = employee.getDateOfBirth();
+        String gender = employee.getGender();
+        String numberPhone = employee.getNumberPhone();
+        String personId = employee.getPersonId();
+        String email = employee.getEmail();
+        String address = employee.getAddress();
+        Department department = employee.getDepartment();
+
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "employeeId", "employeeId.empty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "name.empty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dateOfBirth", "dateOfBirth.empty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "gender", "gender.empty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "numberPhone", "numberPhone.empty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "personId", "personId.empty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "email.empty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "address", "address.empty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "department", "department.empty");
+
+        if (numberPhone.length() > 11 || numberPhone.length() < 10) {
+            errors.rejectValue("numberPhone", "numberPhone.length");
+        }
+        if (!numberPhone.startsWith("0")) {
+            errors.rejectValue("numberPhone", "numberPhone.startWith");
+        }
+        if (!numberPhone.matches("(^$|[0-9]*$)")) {
+            errors.rejectValue("numberPhone", "numberPhone.matches");
+        }
+        if (!email.matches("(^[A-Za-z0-9]+[A-Za-z0-9]*@[A-Za-z0-9]+(.[A-Za-z0-9]+)$)")) {
+            errors.rejectValue("email", "email.matches");
+        }
     }
 }

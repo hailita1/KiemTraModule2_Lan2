@@ -9,9 +9,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 @Controller
@@ -47,13 +49,19 @@ public class EmployeeController {
     }
 
     @PostMapping("/create-employee")
-    public ModelAndView saveProduct(@ModelAttribute("employee") Employee employee) {
-        employeeService.save(employee);
-        ModelAndView modelAndView = new ModelAndView("/employee/create");
-        modelAndView.addObject("employee", new Employee());
-        modelAndView.addObject("message", "\n" +
-                "Add new employees successfully !!!");
-        return modelAndView;
+    public ModelAndView saveProduct(@Valid @ModelAttribute("employee") Employee employee, BindingResult result) {
+        new Employee().validate(employee, result);
+        if (result.hasFieldErrors()) {
+            ModelAndView modelAndView = new ModelAndView("/employee/create");
+            return modelAndView;
+        } else {
+            employeeService.save(employee);
+            ModelAndView modelAndView = new ModelAndView("/employee/create");
+            modelAndView.addObject("employee", new Employee());
+            modelAndView.addObject("message", "\n" +
+                    "Add new employees successfully !!!");
+            return modelAndView;
+        }
     }
 
     @GetMapping("/edit-employee/{id}")
@@ -71,8 +79,8 @@ public class EmployeeController {
     }
 
     @PostMapping("/edit-employee")
-    public ModelAndView updateProduct(@ModelAttribute("employee") Employee employee) {
-
+    public ModelAndView updateProduct(@Valid @ModelAttribute("employee") Employee employee, BindingResult result) {
+        new Employee().validate(employee, result);
         Employee employee1 = employeeService.findById(employee.getId());
         employee1.setName(employee.getName());
         employee1.setDateOfBirth(employee.getDateOfBirth());
@@ -81,17 +89,22 @@ public class EmployeeController {
         employee1.setPersonId(employee.getPersonId());
         employee1.setEmail(employee.getEmail());
         employee1.setAddress(employee.getAddress());
-
-        if (employee1 != null) {
-            employeeService.save(employee1);
+        if (result.hasFieldErrors()) {
             ModelAndView modelAndView = new ModelAndView("/employee/edit");
-            modelAndView.addObject("employee", employee1);
-            modelAndView.addObject("message", "\n" +
-                    "Fix the employee successfully !!!");
             return modelAndView;
-        } else {
-            ModelAndView modelAndView = new ModelAndView("/error.404");
-            return modelAndView;
+        }
+        {
+            if (employee1 != null) {
+                employeeService.save(employee1);
+                ModelAndView modelAndView = new ModelAndView("/employee/edit");
+                modelAndView.addObject("employee", employee1);
+                modelAndView.addObject("message", "\n" +
+                        "Fix the employee successfully !!!");
+                return modelAndView;
+            } else {
+                ModelAndView modelAndView = new ModelAndView("/error.404");
+                return modelAndView;
+            }
         }
     }
 

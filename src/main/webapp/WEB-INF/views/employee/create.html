@@ -71,9 +71,7 @@
                 <td>
                     <select th:field="*{department}">
                         <option th:each="p : ${departments}" th:value="${p.id}" th:text="${p.name}"></option>
-                <td th:if="${#fields.hasErrors('department')}" th:errors="*{department}">Department Error</td>
-                </select>
-
+                    </select>
                 </td>
                 <td><input type="text" th:field="*{personId}"/></td>
                 <td th:if="${#fields.hasErrors('personId')}" th:errors="*{personId}">PersonId Error</td>

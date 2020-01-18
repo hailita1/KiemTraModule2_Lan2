@@ -104,7 +104,6 @@
                     <input type="radio" name="gender" th:field="*{gender}" value="Nam">Nam
                     <input type="radio" name="gender" th:field="*{gender}" value="Nữ">Nữ
                 </td>
-                <td th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}">Gender Error</td>
             </tr>
             <tr>
                 <td><input type="submit" value="Sửa nhân viên" style="color: blue"></td>

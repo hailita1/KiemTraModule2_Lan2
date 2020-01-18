@@ -127,7 +127,6 @@ public class Employee implements Validator {
         String personId = employee.getPersonId();
         String email = employee.getEmail();
         String address = employee.getAddress();
-        Department department = employee.getDepartment();
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "employeeId", "employeeId.empty");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "name.empty");
@@ -137,7 +136,6 @@ public class Employee implements Validator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "personId", "personId.empty");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "email.empty");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "address", "address.empty");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "department", "department.empty");
 
         if (numberPhone.length() > 11 || numberPhone.length() < 10) {
             errors.rejectValue("numberPhone", "numberPhone.length");
